@@ -66,9 +66,11 @@ If the hub binds only to a Tailscale address, run the health check using that ad
 git clone https://github.com/Soar-V/pi-vs-claude-code.git ~/pi-vs-claude-code
 cd ~/pi-vs-claude-code
 bun install
-bun add --global @mariozechner/pi-coding-agent
+bun add --global @earendil-works/pi-coding-agent
 pi --version
 ```
+
+Use the maintained `@earendil-works/pi-coding-agent` package. The archived `@mariozechner/pi-coding-agent` line ended at 0.73.1 and has published security advisories; do not install it on shared systems.
 
 Also configure at least one Pi model provider according to Pi's provider documentation. Keep that API key local to the computer.
 
