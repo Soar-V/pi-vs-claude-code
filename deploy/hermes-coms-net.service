@@ -1,0 +1,25 @@
+[Unit]
+Description=Hermes coms-net adapter (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pi-vs-claude-code
+EnvironmentFile=/etc/hermes-coms-net/%i.env
+ExecStart=/usr/bin/env python3 /opt/pi-vs-claude-code/scripts/hermes_coms_net_adapter.py --env-file /etc/hermes-coms-net/%i.env
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=20
+
+# Keep secrets local and reduce accidental exposure.
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/root /tmp /opt/pi-vs-claude-code /etc/hermes-coms-net
+
+[Install]
+WantedBy=multi-user.target
