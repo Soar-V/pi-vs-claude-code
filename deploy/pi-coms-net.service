@@ -1,0 +1,23 @@
+[Unit]
+Description=Pi coms-net HTTP/SSE agent communication hub
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/pi-vs-claude-code
+EnvironmentFile=/etc/pi-coms-net/default.env
+ExecStart=/root/.bun/bin/bun scripts/coms-net-server.ts
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/root/.pi/coms-net
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
