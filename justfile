@@ -159,3 +159,13 @@ coms3 *args:
 # coms-net with z-ai/glm-5.1
 coms4 *args:
     pi -e extensions/coms-net.ts -e extensions/minimal.ts -e extensions/theme-cycler.ts --model z-ai/glm-5.1 {{args}}
+
+# Verify Claude Code can reach the coms-net hub and list peers (MarinoWorkspace).
+# Reads credentials from $CLAUDE_COMS_NET_ENV or ~/.config/soar/coms-net.env.
+claude-coms-net-check:
+    python3 scripts/claude_coms_net_mcp.py --check
+
+# Run the Claude Code coms-net MCP server in the foreground (debugging only;
+# Claude Code normally spawns this itself via .mcp.json).
+claude-coms-net-server:
+    python3 scripts/claude_coms_net_mcp.py

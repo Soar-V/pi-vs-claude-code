@@ -8,6 +8,9 @@ This fork is Soar's durable copy of `disler/pi-vs-claude-code`, with an operatio
 2. The hub implementation is [`scripts/coms-net-server.ts`](scripts/coms-net-server.ts).
 3. The Pi client extension is [`extensions/coms-net.ts`](extensions/coms-net.ts).
 4. A production systemd template is [`deploy/pi-coms-net.service`](deploy/pi-coms-net.service).
+   Non-Pi frameworks join the same network through their own adapters:
+   Hermes via [`docs/HERMES-COMS-NET-ADAPTER.md`](docs/HERMES-COMS-NET-ADAPTER.md),
+   Claude Code via [`docs/CLAUDE-CODE-COMS-NET.md`](docs/CLAUDE-CODE-COMS-NET.md).
 5. Never commit the bearer token or provider API keys. Keep the hub token in a root-readable environment file and each client's provider key in its local secret store.
 
 ## Current Soar topology

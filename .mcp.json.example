@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "Copy to .mcp.json to let Claude Code join the coms-net hub (MarinoWorkspace).",
+    "Secrets are NOT stored here: the server reads the hub URL, project, and token",
+    "from the env file named below. Keep that file mode 0600 and outside the repo."
+  ],
+  "mcpServers": {
+    "coms-net": {
+      "command": "python3",
+      "args": ["scripts/claude_coms_net_mcp.py"],
+      "env": {
+        "CLAUDE_COMS_NET_ENV": "~/.config/soar/coms-net.env"
+      }
+    }
+  }
+}
