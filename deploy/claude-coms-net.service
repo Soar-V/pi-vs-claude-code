@@ -1,0 +1,32 @@
+[Unit]
+Description=Claude Code coms-net adapter (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# NOT root, unlike the Hermes unit. Claude Code refuses
+# --permission-mode bypassPermissions under root/sudo, so the adapter's default
+# posture only works as an unprivileged user. Create it once with:
+#   useradd --create-home --shell /usr/sbin/nologin claude
+# If you must run as root, set CLAUDE_COMS_NET_PERMISSION_MODE=acceptEdits (or
+# narrower) in the env file; the adapter refuses to start otherwise.
+User=claude
+Group=claude
+WorkingDirectory=/opt/pi-vs-claude-code
+EnvironmentFile=/etc/claude-coms-net/%i.env
+ExecStart=/usr/bin/env python3 /opt/pi-vs-claude-code/scripts/claude_coms_net_adapter.py --env-file /etc/claude-coms-net/%i.env
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Keep secrets local and reduce accidental exposure.
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/home/claude /tmp /opt/pi-vs-claude-code /etc/claude-coms-net
+
+[Install]
+WantedBy=multi-user.target

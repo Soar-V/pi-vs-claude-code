@@ -169,3 +169,11 @@ claude-coms-net-check:
 # Claude Code normally spawns this itself via .mcp.json).
 claude-coms-net-server:
     python3 scripts/claude_coms_net_mcp.py
+
+# Run the inbound Claude Code adapter in the foreground (peers -> Claude Code).
+claude-coms-net-adapter *args:
+    python3 scripts/claude_coms_net_adapter.py {{args}}
+
+# Inbound adapter dry run: full lifecycle, no model tokens spent.
+claude-coms-net-adapter-mock:
+    CLAUDE_COMS_NET_MOCK_RESPONSE='mock reply to {sender}' python3 scripts/claude_coms_net_adapter.py
